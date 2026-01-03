@@ -1,16 +1,32 @@
-# todoappproject
+Secure Task Manager (Flutter + Hive)
 
-A new Flutter project.
+A To-Do / Task Manager app built with Flutter and Hive for local storage.
+This project demonstrates Flutter CRUD operations, input validation, and secure handling of user data.
 
-## Getting Started
+Features
 
-This project is a starting point for a Flutter application.
+Add, edit, delete, and mark tasks as completed
 
-A few resources to get you started if this is your first Flutter project:
+Persistent local storage using Hive
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Input validation to prevent empty or duplicate tasks
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Lightweight, offline-first design suitable for mobile devices
+
+Tech Stack
+
+Flutter
+
+Dart
+
+Hive (local storage)
+
+Status
+
+MVP complete (Add/Display/Delete tasks)
+
+Next steps: Priority levels, due dates, and optional encrypted storage
+
+Purpose
+
+This project is part of my Flutter + Cybersecurity practice, focusing on building secure, functional, portfolio-ready applications.

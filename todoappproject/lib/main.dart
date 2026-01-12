@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoappproject/views/home/home_view.dart';
 
 Future<void> main() async{
   runApp(const MyApp());
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const TestPage(),
+      home: const HomeView(),
     );
   }
 }

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:todoappproject/extensions/space_exs.dart';
 import 'package:todoappproject/utils/app_colors.dart';
 import 'package:todoappproject/utils/app_str.dart';
 import 'package:todoappproject/utils/constants.dart';
 import 'package:todoappproject/views/home/components/fab.dart';
+import 'package:todoappproject/views/home/components/home_app_bar.dart';
 import 'package:todoappproject/views/home/widget/task_widget.dart';
 import 'package:lottie/lottie.dart';
 import 'package:animate_do/animate_do.dart';
+
+import 'components/slider_drawer.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -16,7 +20,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final List<int> testing = [2, 323, 23];
+  GlobalKey<SliderDrawerState> drawerkey = GlobalKey<SliderDrawerState>();
+  final List<int> testing = [];
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -26,7 +31,23 @@ class _HomeViewState extends State<HomeView> {
       floatingActionButton: Fab(),
 
       ///Body
-      body: _buildHomeBody(textTheme),
+      body: SliderDrawer(
+        key: drawerkey,
+        isDraggable: false,
+        animationDuration: 1000,
+
+        ///Drawer
+        slider: CustomDrawer(),
+        //appBar:HomeAppBar(),
+        ///Main Body
+        appBar: const SizedBox.shrink(),
+        child: Stack(
+          children: [
+            _buildHomeBody(textTheme),
+            SafeArea(child: HomeAppBar(drawerkey: drawerkey)),
+          ],
+        ),
+      ),
     );
   }
 
@@ -38,10 +59,10 @@ class _HomeViewState extends State<HomeView> {
       child: Column(
         children: [
           ///Custom App Bar
-          Container(
-            margin: EdgeInsets.only(top: 60),
+          SizedBox(
+            //margin: EdgeInsets.only(top: 60),
             width: double.infinity,
-            height: 100,
+            height: 130,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -80,9 +101,9 @@ class _HomeViewState extends State<HomeView> {
           ),
 
           ///Tasks
-          SizedBox(
-            width: double.infinity,
-            height: 745,
+          Expanded(
+            // width: double.infinity,
+            // height: 745,
             child: testing.isNotEmpty
                 ///Task List is not empty
                 ? ListView.builder(

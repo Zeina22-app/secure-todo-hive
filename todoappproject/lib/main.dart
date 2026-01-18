@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todoappproject/views/home/home_view.dart';
+import 'package:todoappproject/views/tasks/widgets/task_view.dart';
 
 Future<void> main() async{
   runApp(const MyApp());
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: const HomeView(),
+      //home: const TaskView(),
     );
   }
 }

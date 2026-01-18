@@ -1,18 +1,16 @@
-import 'dart:developer';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todoappproject/utils/app_colors.dart';
+import 'package:todoappproject/views/tasks/widgets/task_view.dart';
 
 class Fab extends StatelessWidget {
-  const Fab({
-    super.key,
-  });
+  const Fab({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        ///We will navigate to task view by tapping on this button later one
-        log("Task View ");
+      onTap: () {
+        Navigator.push(context, CupertinoPageRoute(builder: (_) => TaskView()));
       },
       child: Material(
         borderRadius: BorderRadius.circular(15),
@@ -24,12 +22,7 @@ class Fab extends StatelessWidget {
             color: AppColors.primaryColor,
             borderRadius: BorderRadius.circular(15),
           ),
-          child: const Center(
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-          ),
+          child: const Center(child: Icon(Icons.add, color: Colors.white)),
         ),
       ),
     );

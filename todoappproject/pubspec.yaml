@@ -55,7 +55,7 @@ dependencies:
   lottie: ^3.3.2
 
   #Toast
-  fluttertoast: ^9.0.0
+  ftoast: ^2.0.0
 
   #Slider
   flutter_slider_drawer: ^3.0.2

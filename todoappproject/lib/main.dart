@@ -13,10 +13,10 @@ Future<void> main() async {
   Hive.registerAdapter<Task>(TaskAdapter());
 
   ///Open a box
-  Box box = await Hive.openBox<Task>(HiveDataStore.boxName);
+  var box = await Hive.openBox<Task>("tasksBox");
 
-  ///This step is not necessary
   ///Delete data from previous day
+  // ignore: avoid_function_literals_in_foreach_calls
   box.values.forEach(
     (task) {
       if(task.createdAtTime.day != DateTime.now().day) {
@@ -57,7 +57,7 @@ class BaseWidget extends InheritedWidget{
 
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -101,16 +101,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class TestPage extends StatefulWidget {
-  const TestPage({super.key});
 
-  @override
-  State<TestPage> createState() => _TestPageState();
-}
-
-class _TestPageState extends State<TestPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar());
-  }
-}

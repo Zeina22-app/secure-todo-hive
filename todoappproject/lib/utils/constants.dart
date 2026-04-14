@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:ftoast/ftoast.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
+import 'package:todoappproject/main.dart';
 //import 'package:todoappproject/main.dart';
 import 'package:todoappproject/utils/app_str.dart';
 
-
+/// lottie asset address
 String lottieURL = 'assets/lottie/1.json';
 
 
-///Empty title or subtitle textfield warning
-dynamic emptyWarning(BuildContext context){
+///Empty title & subtitle textfield warning
+dynamic emptyFieldsWarning(BuildContext context){
   return FToast.toast(
     context,
     msg: AppStr.oopsMsg,
@@ -28,7 +29,7 @@ dynamic updateTaskWarning(BuildContext context){
     msg: AppStr.oopsMsg,
     subMsg: 'You must edit the tasks then try to update it!',
     corner: 20.0,
-    duration: 5000,
+    duration: 3000,
     padding: EdgeInsets.all(20),
   );
 }
@@ -57,7 +58,7 @@ dynamic deleteAllTask(BuildContext context){
     cancelButtonText: 'No', 
     onTapConfirm: (){
       ///We will clear all the box data using this command later on
-      //BaseWidget.of(context).dataStore.box.clear();
+      BaseWidget.of(context).dataStore.box.clear();
       Navigator.pop(context);
     }, 
     onTapCancel: (){

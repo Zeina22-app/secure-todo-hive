@@ -1,12 +1,11 @@
 import 'package:flutter/foundation.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todoappproject/models/task.dart';
 
 ///All the [CRUD] opeartion methods
 class HiveDataStore{
   ///Box Name - String
-  static const boxName = 'taskBox';
+  static const boxName = 'tasksBox';
 
   ///Our current Box with all the saved data inside - Box<Task>
   final Box<Task> box = Hive.box<Task>(boxName);
@@ -34,7 +33,7 @@ class HiveDataStore{
   
 
   ///Listen to box Changes
-  //////using this method we will listen to box changes and update the
+  ///using this method we will listen to box changes and update the
   ///UI accordingly
   ValueListenable<Box<Task>> listenToTask() => box.listenable();
 

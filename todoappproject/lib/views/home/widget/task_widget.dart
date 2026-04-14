@@ -1,21 +1,62 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:todoappproject/models/task.dart';
 import 'package:todoappproject/utils/app_colors.dart';
+import 'package:todoappproject/views/tasks/task_view.dart';
 
-class TaskWidget extends StatelessWidget {
-  const TaskWidget({
-    super.key,
-  });
+class TaskWidget extends StatefulWidget {
+  const TaskWidget({super.key, required this.task});
+  final Task task;
+  @override
+  State<TaskWidget> createState() => _TaskWidgetState();
+}
+
+class _TaskWidgetState extends State<TaskWidget> {
+  TextEditingController textEditingControllerForTitle = TextEditingController();
+  TextEditingController textEditingControllerForSubTitle =
+      TextEditingController();
+
+  @override
+  void initState() {
+    textEditingControllerForTitle.text = widget.task.title;
+    textEditingControllerForSubTitle.text = widget.task.subTitle;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    textEditingControllerForTitle.dispose();
+    textEditingControllerForSubTitle.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        ///Navigate to Task View to see Task details
+      onTap: () {
+        //Here 
+        Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (ctx) => TaskView(
+              titleTaskController: textEditingControllerForTitle,
+              descriptionTaskController: textEditingControllerForSubTitle,
+              task: widget.task,
+            ),
+          ),
+        );
       },
+
+      ///Main Card
       child: AnimatedContainer(
+        duration: Duration(milliseconds: 600),
         margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: AppColors.primaryColor.withOpacity(0.1),
+          //color: AppColors.primaryColor.withOpacity(0.1),
+          color: widget.task.isCompleted
+              ? const Color.fromARGB(154, 119, 144, 229)
+              : Colors.white,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
@@ -25,72 +66,87 @@ class TaskWidget extends StatelessWidget {
             ),
           ],
         ),
-        duration: Duration(milliseconds: 600),
         child: ListTile(
           ///Check icon
           leading: GestureDetector(
             onTap: () {
               ///Check or uncheck the task
+              widget.task.isCompleted = !widget.task.isCompleted;
+              widget.task.save();
             },
             child: AnimatedContainer(
               duration: Duration(milliseconds: 600),
-              height: 24,
-              width: 24,
+              // height: 24,
+              // width: 24,
               decoration: BoxDecoration(
-                color: AppColors.primaryColor,
+                color: widget.task.isCompleted
+                    ? AppColors.primaryColor
+                    : Colors.white,
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.grey, width: 0.8),
               ),
               child: Icon(Icons.check, color: Colors.white),
             ),
           ),
-      
+
           ///Task Title
           title: Padding(
             padding: const EdgeInsets.only(bottom: 5.0, top: 3),
             child: Text(
-              "Done",
+              textEditingControllerForTitle.text,
               style: TextStyle(
-                color: Colors.black,
+                color: widget.task.isCompleted
+                    ? AppColors.primaryColor
+                    : Colors.black,
                 fontWeight: FontWeight.w500,
-                //decoration: TextDecoration.lineThrough,
+                decoration: widget.task.isCompleted
+                    ? TextDecoration.lineThrough
+                    : null,
               ),
             ),
           ),
-      
-          ///Task Description
+
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ///Task Description
               Text(
-                "Description",
+                textEditingControllerForSubTitle.text,
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: widget.task.isCompleted
+                      ? AppColors.primaryColor
+                      : Colors.black,
                   fontWeight: FontWeight.w300,
-                  //decoration: TextDecoration.lineThrough,
+                  decoration: widget.task.isCompleted
+                      ? TextDecoration.lineThrough
+                      : null,
                 ),
               ),
-      
-              ///Date of Task
+
+              ///Date and Time of Task
               Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0,top: 10),
+                  padding: const EdgeInsets.only(bottom: 10.0, top: 10),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Date",
+                        DateFormat('hh:mm a').format(widget.task.createdAtTime),
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey,
+                          color: widget.task.isCompleted
+                              ? Colors.white
+                              : Colors.grey,
                         ),
                       ),
                       Text(
-                        "SubDate",
+                        DateFormat.yMMMEd().format(widget.task.createdAtDate),
                         style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
+                          fontSize: 12,
+                          color: widget.task.isCompleted
+                              ? Colors.white
+                              : Colors.grey,
                         ),
                       ),
                     ],

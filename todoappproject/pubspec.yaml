@@ -45,6 +45,8 @@ dependencies:
   #Provides internationalization and localization facilities
   intl: ^0.20.2
 
+  flutter_datetime_picker_plus: ^2.0.1
+  flutter_beautiful_popup: ^1.7.0
   #Animation
   animate_do: ^4.2.0
 
@@ -52,7 +54,7 @@ dependencies:
   panara_dialogs: ^0.1.5
 
   #Animations exported as json
-  lottie: ^3.3.2
+  lottie: ^3.3.0
 
   #Toast
   ftoast: ^2.0.0
